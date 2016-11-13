@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'oksx1.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'a1',		'USER':	'JimmDiezel', 		'PASSWORD' :' 'mypassword', 	'HOST' : 'localhost'	'PORT' : '5432'	
+        'NAME': 'a1',		'USER':	'JimmDiezel', 		'PASSWORD' : 'mypassword', 	'HOST' : 'localhost',	'PORT' : '5432',	
     }
 }
 
