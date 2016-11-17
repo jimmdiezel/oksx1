@@ -86,7 +86,6 @@ class test(models.Model):
 class event(models.Model):
 	name = models.CharField(max_length=80)
 	executive = models.ForeignKey(executive)
-	description = models.TextField(max_length=600)
 	description = models.TextField(blank=True, max_length=600)
 	add1 = models.CharField('Address Line 1', max_length=80)
 	add2 = models.CharField('Address Line 2', blank=True, max_length=80)
@@ -102,3 +101,6 @@ class event(models.Model):
 	email = models.EmailField(max_length=200)
 	phone = models.IntegerField()
 	website = models.URLField(blank=True, max_length=50)
+
+	def __str__(self):
+		return self.name
