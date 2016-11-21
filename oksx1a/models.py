@@ -11,7 +11,7 @@ class user(models.Model):
 	union = models.CharField(blank=True, max_length=30)
 	union_no = models.CharField(blank=True, max_length=30)
 	age = models.IntegerField(default=0)
-	ethnic = models.IntegerField('Ethnic Background', default=0)
+	ethnic = models.IntegerField('Ethnic Background', blank=True, default=0)
 	address = models.TextField(blank=True, max_length=320)
 	postcode = models.CharField(blank=True, max_length=10)
 	phone = models.IntegerField(blank=True, default=0)
@@ -23,6 +23,7 @@ class user(models.Model):
 
 class executive (models.Model):
 	name = models.CharField(max_length=30)	
+	sector = models.CharField(blank=True, max_length=100)
 	director = models.CharField('Company Director', blank=True, max_length=60)
 	contact = models.CharField('Contact Name', blank=True, max_length=60)
 	email = models.EmailField(blank=True, max_length=200)
@@ -35,7 +36,7 @@ class executive (models.Model):
 
 class location (models.Model):
 	name = models.CharField(max_length=30)
-	executive = models.ForeignKey(executive)
+	exec = models.ForeignKey(executive)
 	add1 = models.CharField('Address Line 1', max_length=80)
 	add2 = models.CharField('Address Line 2', blank=True, max_length=80)
 	add3 = models.CharField('Address Line 3', blank=True, max_length=80)
@@ -55,16 +56,16 @@ class location (models.Model):
 	photo = models.ImageField(blank=True, max_length=150)
 
 	def __str__(self):
-		return self.name
+		return self.add1
 
 class test(models.Model): 
 	testno = models.UUIDField('Test No', primary_key=True, default=uuid.uuid4, editable=False)	
 	pik = models.CharField('Personal ID Key', max_length=10)
-	user = models.ForeignKey(user)
+	user = models.ForeignKey(user, null=True, blank=True)
 	location = models.ForeignKey(location) #test site is location
-	role = models.IntegerField(default=0)
-	type = models.IntegerField(default=0)
-	start = models.DateTimeField('Start of Service')
+	role = models.IntegerField(null=True, blank=True)
+	type = models.IntegerField(null=True, blank=True)
+	start = models.DateField('Start of Service')
 	avg_hours = models.DurationField('Average Weekly Hours')
 	received = models.DateTimeField('Time/Date Stamp')
 	t1 = models.IntegerField(default=0)
