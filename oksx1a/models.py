@@ -61,7 +61,7 @@ class location (models.Model):
 class test(models.Model): 
 	testno = models.UUIDField('Test No', primary_key=True, default=uuid.uuid4, editable=False)	
 	pik = models.CharField('Personal ID Key', max_length=10)
-	user = models.ForeignKey(user, null=True, blank=True)
+	testuser = models.ForeignKey(user, null=True, blank=True)
 	location = models.ForeignKey(location) #test site is location
 	role = models.IntegerField(null=True, blank=True)
 	type = models.IntegerField(null=True, blank=True)
