@@ -36,12 +36,12 @@ class executive (models.Model):
 
 class location (models.Model):
 	name = models.CharField(max_length=30)
-	exec = models.ForeignKey(executive)
-	add1 = models.CharField('Address Line 1', max_length=80)
-	add2 = models.CharField('Address Line 2', blank=True, max_length=80)
-	add3 = models.CharField('Address Line 3', blank=True, max_length=80)
-	add4 = models.CharField('Address Line 4', blank=True, max_length=80)
-	add5 = models.CharField('Address Line 5', blank=True, max_length=80)
+	company = models.ForeignKey(executive)
+	add1 = models.CharField('Building', max_length=80)
+	add2 = models.CharField('Street', blank=True, max_length=80)
+	add3 = models.CharField('Town/City', blank=True, max_length=80)
+	add4 = models.CharField('Region', blank=True, max_length=80)
+	add5 = models.CharField('Country', blank=True, max_length=80)
 	postcode = models.CharField(max_length=10)
 	contact = models.CharField(blank=True, max_length=60)
 	email = models.EmailField(blank=True, max_length=200)
@@ -56,7 +56,8 @@ class location (models.Model):
 	photo = models.ImageField(blank=True, max_length=150)
 
 	def __str__(self):
-		return self.add1
+		l = str(self.company)
+		return self.add1 + ", " + self.add2 + "(" + l + ")"
 
 class test(models.Model): 
 	testno = models.UUIDField('Test No', primary_key=True, default=uuid.uuid4, editable=False)	
@@ -80,9 +81,10 @@ class test(models.Model):
 	t10 = models.IntegerField(default=0)
 	t11 = models.IntegerField(default=0)
 	t12 = models.IntegerField(default=0)
-
+		
 	def __str__(self):
-		self.testno
+		l = str(self.testno)
+		return l
 
 class event(models.Model):
 	name = models.CharField(max_length=80)
