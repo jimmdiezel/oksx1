@@ -3,42 +3,50 @@ from django.contrib import admin
 # Register your models here.
 
 
-from .models import user, executive, location, test, event, venue, assessment
+from .models import user, executive, location, test, event, venue, assessment, role, network
+
+class assessmentAdmin(admin.ModelAdmin):
+    list_display = ('t1','t2','t3','t4','t5','t6','t7','t8','t9','t10','t11','t12','total','average')
 
 class userAdmin(admin.ModelAdmin):
-	fieldsets = [
-		(None, 			{'fields': ['username', 'first_name', 'last_name', 'union', 'union_no', 'photo']}),
-		('Specifications', 	{'fields': ['age', 'gender', 'ethnic'], 'classes': ['collapse']}),
-		('Communications', 	{'fields': ['address', 'email', 'phone'], 'classes': ['collapse']}),
-		('Evaluations',		{'fields': ['results'], 'classes': ['collapse']}),
-	]
+    fieldsets = [
+        (None, 			{'fields': ['username', 'first_name', 'last_name', 'union', 'union_no', 'photos']}),
+        ('Details',             {'fields': ['address'], 'classes': ['collapse']}),
+    ]
+    list_display = ('username', 'first_name', 'last_name', 'union', 'union_no')
 
 class executiveAdmin(admin.ModelAdmin):
-	fieldsets = [
-		(None,			{'fields': ['name', 'director', 'sector', 'logo']}),
-		('Communications',	{'fields': ['contact1', 'contact2', 'website', 'email', 'phone'], 'classes': ['collapse']}),
-	]
+    fieldsets = [
+        (None,			{'fields': ['name', 'director', 'sector', 'logo', 'photos']}),
+        ('Details',	        {'fields': ['address', 'comms', 'contacts', 'stewards'], 'classes': ['collapse']}),
+    ]
+    list_display = ('name', 'director', 'sector')
 
 class locationAdmin(admin.ModelAdmin):
-	fieldsets = [
-		(None,			{'fields': ['name', 'company', 'manager', 'logo', 'photo']}),
-		('Agents',		{'fields': ['steward1', 'steward2', 'steward3', 'steward4'], 'classes': ['collapse']}),
-		('Communications',	{'fields': ['contact1', 'contact2', 'website', 'email', 'phone', 'wifi'], 'classes': ['collapse']}),
-	]
+    fieldsets = [
+	(None,			{'fields': ['name', 'brand', 'manager', 'logo', 'photos']}),
+	('Details',	        {'fields': ['address', 'comms', 'contacts', 'stewards'], 'classes': ['collapse']}),
+    ]
+    list_display = ('name', 'brand', 'manager')
 
 class testAdmin(admin.ModelAdmin):
-	fieldsets = [
-		(None, 			{'fields': ['pik', 'user', 'location']}),
-		('Details',		{'fields': ['role', 'type', 'start', 'avg_hours', 'received'], 'classes': ['collapse']}),
-	]
+    fieldsets = [
+	(None, 			{'fields': ['pik', 'user', 'location']}),
+	('Details',		{'fields': ['roles'], 'classes': ['collapse']}),
+        ('Assessment',          {'fields': ['result']}),
+    ]
+    list_display = ('pik', 'user', 'location')
 
 class eventAdmin(admin.ModelAdmin):
-	fieldsets = [
-		(None,			{'fields': ['name', 'executive', 'description', 'logo', 'photo']}),
-		('Communications',	{'fields': ['contact1', 'contact2', 'website', 'email', 'phone'], 'classes': ['collapse']}),		
-	]
+    fieldsets = [
+	(None,			{'fields': ['name', 'brand', 'description', 'start', 'end', 'logo']}),
+	('Communications',	{'fields': ['contacts'], 'classes': ['collapse']}),		
+    ]
+    list_display = ('name', 'brand', 'start', 'end')
 
-admin.site.register(assessment)
+admin.site.register(role)
+admin.site.register(network)
+admin.site.register(assessment, assessmentAdmin)
 admin.site.register(venue)
 admin.site.register(user, userAdmin)
 admin.site.register(executive, executiveAdmin)
